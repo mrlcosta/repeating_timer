@@ -22,18 +22,18 @@ bool repeating_timer_callback(struct repeating_timer *t) {
     // Alterando o estado do semáforo a cada 3 segundos
     switch (current_state) {
         case RED:
-            current_state = YELLOW;
-            gpio_put(LED_RED, 0);       // Apaga o LED vermelho
-            gpio_put(LED_YELLOW, 1);    // Acende o LED amarelo
-            break;
-        case YELLOW:
             current_state = GREEN;
-            gpio_put(LED_YELLOW, 0);    // Apaga o LED amarelo
-            gpio_put(LED_GREEN, 1);     // Acende o LED verde
+            gpio_put(LED_RED, 0);       // Apaga o LED vermelho
+            gpio_put(LED_GREEN, 1);    // Acende o LED amarelo
             break;
         case GREEN:
+            current_state = YELLOW;
+            gpio_put(LED_YELLOW, 1);    // Apaga o LED amarelo
+            gpio_put(LED_GREEN, 0);     // Acende o LED verde
+            break;
+        case YELLOW:
             current_state = RED;
-            gpio_put(LED_GREEN, 0);     // Apaga o LED verde
+            gpio_put(LED_YELLOW, 0);     // Apaga o LED verde
             gpio_put(LED_RED, 1);       // Acende o LED vermelho
             break;
     }
